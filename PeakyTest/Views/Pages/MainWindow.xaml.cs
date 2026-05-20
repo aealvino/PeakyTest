@@ -20,5 +20,14 @@ namespace PeakyTest
         {
             InitializeComponent();
         }
+
+        private void GoToMainPage(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void GoToCurrenciesPage(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new PeakyTestUI.Views.CurrenciesPageView());
+        }
     }
 }
