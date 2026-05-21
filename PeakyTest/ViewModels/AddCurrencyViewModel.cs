@@ -1,6 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using PeakyStart.Domain.Interfaces.Services;
 using PeakyStart.Domain.Models;
+using PeakyTestUI.Validations;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace PeakyTestUI.ViewModels
 {
@@ -16,45 +19,84 @@ namespace PeakyTestUI.ViewModels
         }
 
         private string _charCode = string.Empty;
+
+        [Required(ErrorMessage = "Код обязателен")]
         public string CharCode
         {
             get => _charCode;
-            set => SetField(ref _charCode, value);
+            set
+            {
+                SetProperty(ref _charCode, value);
+                ValidateProperty(value, nameof(CharCode));
+            }
         }
 
         private string _numCode = string.Empty;
+
+        [Required(ErrorMessage = "Цифровой код обязателен")]
         public string NumCode
         {
             get => _numCode;
-            set => SetField(ref _numCode, value);
+            set
+            {
+                SetProperty(ref _numCode, value);
+                ValidateProperty(value, nameof(NumCode));
+            }
         }
 
         private string _name = string.Empty;
+
+        [Required(ErrorMessage = "Название обязательно")]
         public string Name
         {
             get => _name;
-            set => SetField(ref _name, value);
+            set
+            {
+                SetProperty(ref _name, value);
+                ValidateProperty(value, nameof(Name));
+            }
         }
 
         private string _nominal = string.Empty;
+
+        [Required(ErrorMessage = "Номинал обязателен")]
+        [MustBeNum(ErrorMessage = "Номинал должен быть целым числом")]
         public string Nominal
         {
             get => _nominal;
-            set => SetField(ref _nominal, value);
+            set
+            {
+                SetProperty(ref _nominal, value);
+                ValidateProperty(value, nameof(Nominal));
+            }
         }
 
         private string _value = string.Empty;
+
+        [Required(ErrorMessage = "Курс обязателен")]
+        [MustBeNum(ErrorMessage = "Должен быть числом")]
         public string Value
         {
             get => _value;
-            set => SetField(ref _value, value);
+            set
+            {
+                SetProperty(ref _value, value);
+                ValidateProperty(value, nameof(Value));
+            }
         }
 
         private string _previous = string.Empty;
+
+        [Required(ErrorMessage = "Вчерашнее значение обязательно")]
+        [MustBeNum(ErrorMessage = "Вчерашнее значение должно быть числом")]
         public string Previous
         {
             get => _previous;
-            set => SetField(ref _previous, value);
+            set
+            {
+                SetProperty(ref _previous, value);
+                ValidateProperty(value, nameof(Previous));
+            }
         }
 
         private bool _isLoading;
@@ -91,29 +133,8 @@ namespace PeakyTestUI.ViewModels
             ErrorMessage = string.Empty;
             SuccessMessage = string.Empty;
 
-            if (string.IsNullOrWhiteSpace(CharCode) || string.IsNullOrWhiteSpace(Name))
-            {
-                ErrorMessage = "Поля «Код» и «Валюта» обязательны";
-                return;
-            }
-
-            if (!double.TryParse(Value, out var parsedValue))
-            {
-                ErrorMessage = "Некорректное значение курса";
-                return;
-            }
-
-            if (!double.TryParse(Previous, out var parsedPrevious))
-            {
-                ErrorMessage = "Некорректное значение «Вчера»";
-                return;
-            }
-
-            if (!int.TryParse(Nominal, out var parsedNominal))
-            {
-                ErrorMessage = "Некорректный номинал";
-                return;
-            }
+            ValidateAllProperties();
+            if (HasErrors) return;
 
             IsLoading = true;
             try
@@ -124,9 +145,9 @@ namespace PeakyTestUI.ViewModels
                     NumCode = NumCode,
                     CharCode = CharCode,
                     Name = Name,
-                    Nominal = parsedNominal,
-                    Value = parsedValue,
-                    Previous = parsedPrevious
+                    Nominal = int.Parse(Nominal),
+                    Value = double.Parse(Value, CultureInfo.InvariantCulture),
+                    Previous = double.Parse(Previous, CultureInfo.InvariantCulture)
                 };
 
                 await _currencyService.AddAsync(currency);
@@ -155,8 +176,10 @@ namespace PeakyTestUI.ViewModels
             Nominal = string.Empty;
             Value = string.Empty;
             Previous = string.Empty;
+
             ErrorMessage = string.Empty;
-            SuccessMessage = string.Empty;
+
+            ClearErrors();
         }
     }
 }
