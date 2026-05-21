@@ -9,8 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
     <Folder Include="Views\Popups\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PeakyStart.Core\PeakyStart.Domain.csproj" />
+    <ProjectReference Include="..\PeakyStart.Infrastructure\PeakyStart.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

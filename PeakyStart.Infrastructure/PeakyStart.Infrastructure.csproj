@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PeakyStart.Core\PeakyStart.Domain.csproj" />
+  </ItemGroup> 
+
 </Project>
