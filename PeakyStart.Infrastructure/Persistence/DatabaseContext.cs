@@ -7,6 +7,8 @@ namespace PeakyStart.Infrastructure.Persistence
     public class DatabaseContext : DbContext
     {
         public DbSet<Currency> Currencies { get; set; }
+        private const string DatabaseFileName = "peakystart.db";
+        private const string FallbackFolderName = "PeakyStart";
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -15,15 +17,11 @@ namespace PeakyStart.Infrastructure.Persistence
             try
             {
                 var localFolder = ApplicationData.Current.LocalFolder.Path;
-                dbPath = Path.Combine(localFolder, "peakystart.db");
+                dbPath = Path.Combine(localFolder, DatabaseFileName);
             }
             catch
             {
-                dbPath = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "PeakyStart",
-                    "peakystart.db");
-
+                dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), FallbackFolderName, DatabaseFileName);
                 Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
             }
 
