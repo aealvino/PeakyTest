@@ -12,6 +12,7 @@ namespace PeakyTestUI.ViewModels
         public ObservableCollection<Currency> Currencies { get; } = new();
 
         private bool _isLoading;
+
         public bool IsLoading
         {
             get => _isLoading;
@@ -19,6 +20,7 @@ namespace PeakyTestUI.ViewModels
         }
 
         private string _errorMessage = string.Empty;
+
         public string ErrorMessage
         {
             get => _errorMessage;
@@ -32,6 +34,7 @@ namespace PeakyTestUI.ViewModels
             _currencyService = currencyService;
             LoadCommand = new RelayCommand(LoadAsync);
         }
+
         private async Task LoadAsync()
         {
             IsLoading = true;

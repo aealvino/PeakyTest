@@ -9,30 +9,18 @@
 
     <Grid Margin="16">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="8">
             <Button Content="Загрузить курсы валют" Command="{Binding LoadCommand}" Padding="12"></Button>
-
-            <TextBlock Margin="12" VerticalAlignment="Center" FontSize="14" FontStyle="Italic">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsLoading}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Setter Property="Text" Value="Загрузка..."/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
         </StackPanel>
 
-        <ListView Grid.Row="2" ItemsSource="{Binding Currencies}">
+        <ListView Grid.Row="1" 
+                  ItemsSource="{Binding Currencies}" 
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="True">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="200"/>
