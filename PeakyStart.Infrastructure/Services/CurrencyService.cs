@@ -17,16 +17,12 @@ namespace PeakyStart.Infrastructure.Services
         }
         public async Task<IEnumerable<Currency>> GetAllAsync()
         {
-            try
+            if (!await _localRepository.HasDataAsync())
             {
                 var currencies = await _httpRepository.GetAllAsync();
                 await _localRepository.SaveAllAsync(currencies);
             }
-            catch (HttpRequestException)
-            {
-                if (!await _localRepository.HasDataAsync())
-                    throw;
-            }
+
             return await _localRepository.GetAllAsync();
         }
 
@@ -39,6 +35,11 @@ namespace PeakyStart.Infrastructure.Services
         {
             var currencies = await _httpRepository.GetAllAsync();
             await _localRepository.SaveAllAsync(currencies);
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            await _localRepository.DeleteAsync(id);
         }
     }
 }

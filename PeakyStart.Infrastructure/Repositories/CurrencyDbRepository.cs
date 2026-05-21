@@ -52,5 +52,14 @@ namespace PeakyStart.Infrastructure.Repositories
             _db.Currencies.Add(currency);
             await _db.SaveChangesAsync();
         }
+
+        public async Task DeleteAsync(string id)
+        {
+            var entity = await _db.Currencies.FindAsync(id);
+            if (entity is null) 
+                return;
+            _db.Currencies.Remove(entity);
+            await _db.SaveChangesAsync();
+        }
     }
 }

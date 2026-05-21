@@ -1,19 +1,17 @@
-﻿using PeakyStart.Domain.Interfaces.Services;
+﻿using CommunityToolkit.Mvvm.Input;
+using PeakyStart.Domain.Interfaces.Services;
 using PeakyStart.Domain.Models;
 using System.Collections.ObjectModel;
-using System.Net.Http;
-using System.Windows.Input;
 
 namespace PeakyTestUI.ViewModels
 {
-    public class CurrencyViewModel : BaseViewModel
+    public partial class CurrencyViewModel : BaseViewModel
     {
         private readonly ICurrencyService _currencyService;
 
         public ObservableCollection<Currency> Currencies { get; } = new();
 
         private bool _isLoading;
-
         public bool IsLoading
         {
             get => _isLoading;
@@ -21,32 +19,53 @@ namespace PeakyTestUI.ViewModels
         }
 
         private string _errorMessage = string.Empty;
-
         public string ErrorMessage
         {
             get => _errorMessage;
             set => SetField(ref _errorMessage, value);
         }
 
-        public ICommand LoadCommand { get; }
-        public ICommand RefreshCommand { get; }
+        // ❌ Убрали: LoadCommand, RefreshCommand, DeleteCommand
+        // ✅ Они генерируются автоматически через [RelayCommand]
 
         public CurrencyViewModel(ICurrencyService currencyService)
         {
             _currencyService = currencyService;
-            LoadCommand = new RelayCommand(LoadAsync);
-            RefreshCommand = new RelayCommand(RefreshAsync);
         }
 
+        [RelayCommand]
         private async Task RefreshAsync()
         {
             await ExecuteAsync(() => _currencyService.RefreshAsync()
                 .ContinueWith(_ => _currencyService.GetAllAsync()).Unwrap());
         }
 
+        [RelayCommand]
         private async Task LoadAsync()
         {
             await ExecuteAsync(() => _currencyService.GetAllAsync());
+        }
+
+        [RelayCommand]
+        private async Task DeleteAsync(Currency? currency)
+        {
+            if (currency is null) return;
+
+            IsLoading = true;
+            ErrorMessage = string.Empty;
+            try
+            {
+                await _currencyService.DeleteAsync(currency.Id);
+                Currencies.Remove(currency);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Ошибка удаления: {ex.Message}";
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private async Task ExecuteAsync(Func<Task<IEnumerable<Currency>>> action)
@@ -59,10 +78,6 @@ namespace PeakyTestUI.ViewModels
                 Currencies.Clear();
                 foreach (var c in result)
                     Currencies.Add(c);
-            }
-            catch (HttpRequestException ex)
-            {
-                ErrorMessage = $"Нет соединения: {ex.Message}";
             }
             catch (Exception ex)
             {

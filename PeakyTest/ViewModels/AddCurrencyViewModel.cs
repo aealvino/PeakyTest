@@ -1,18 +1,18 @@
-﻿using PeakyStart.Domain.Interfaces.Services;
+﻿using CommunityToolkit.Mvvm.Input;
+using PeakyStart.Domain.Interfaces.Services;
 using PeakyStart.Domain.Models;
-using System.Windows.Input;
 
 namespace PeakyTestUI.ViewModels
 {
-    public class AddCurrencyViewModel : BaseViewModel
+    public partial class AddCurrencyViewModel : BaseViewModel
     {
-        private ICurrencyService _currencyService;
+        private readonly ICurrencyService _currencyService;
 
-        private string id = string.Empty;
+        private string _id = string.Empty;
         public string Id
         {
-            get => id;
-            set => SetField(ref id, value);
+            get => _id;
+            set => SetField(ref _id, value);
         }
 
         private string _charCode = string.Empty;
@@ -78,18 +78,14 @@ namespace PeakyTestUI.ViewModels
             set => SetField(ref _successMessage, value);
         }
 
-        public ICommand AddCommand { get; }
-        public ICommand ClearCommand { get; }
-        
         public event Action? OnAdded;
 
         public AddCurrencyViewModel(ICurrencyService currencyService)
         {
             _currencyService = currencyService;
-            AddCommand = new RelayCommand(AddAsync);
-            ClearCommand = new RelayCommand(ClearFields);
         }
 
+        [RelayCommand]
         private async Task AddAsync()
         {
             ErrorMessage = string.Empty;
@@ -97,25 +93,25 @@ namespace PeakyTestUI.ViewModels
 
             if (string.IsNullOrWhiteSpace(CharCode) || string.IsNullOrWhiteSpace(Name))
             {
-                ErrorMessage = "Поля «Код» и «Валюта» обязательны.";
+                ErrorMessage = "Поля «Код» и «Валюта» обязательны";
                 return;
             }
 
             if (!double.TryParse(Value, out var parsedValue))
             {
-                ErrorMessage = "Некорректное значение курса.";
+                ErrorMessage = "Некорректное значение курса";
                 return;
             }
 
             if (!double.TryParse(Previous, out var parsedPrevious))
             {
-                ErrorMessage = "Некорректное значение «Вчера».";
+                ErrorMessage = "Некорректное значение «Вчера»";
                 return;
             }
 
             if (!int.TryParse(Nominal, out var parsedNominal))
             {
-                ErrorMessage = "Некорректный номинал.";
+                ErrorMessage = "Некорректный номинал";
                 return;
             }
 
@@ -137,7 +133,7 @@ namespace PeakyTestUI.ViewModels
 
                 SuccessMessage = $"Валюта «{Name}» успешно добавлена.";
                 OnAdded?.Invoke();
-                await ClearFields();
+                ClearFields();
             }
             catch (Exception ex)
             {
@@ -149,7 +145,8 @@ namespace PeakyTestUI.ViewModels
             }
         }
 
-        private Task ClearFields()
+        [RelayCommand]
+        private void ClearFields()
         {
             Id = string.Empty;
             CharCode = string.Empty;
@@ -160,7 +157,6 @@ namespace PeakyTestUI.ViewModels
             Previous = string.Empty;
             ErrorMessage = string.Empty;
             SuccessMessage = string.Empty;
-            return Task.CompletedTask;
         }
     }
 }

@@ -33,6 +33,16 @@
                     <GridViewColumn Header="Номинал" DisplayMemberBinding="{Binding Nominal}" Width="200"/>
                     <GridViewColumn Header="Курс" DisplayMemberBinding="{Binding Value}" Width="200"/>
                     <GridViewColumn Header="Вчера" DisplayMemberBinding="{Binding Previous}" Width="200"/>
+
+                    <GridViewColumn Header="Delete" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content = "Удалить" Foreground="Red" Background="Transparent" 
+                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn> 
+                    
                 </GridView>
             </ListView.View>
         </ListView>

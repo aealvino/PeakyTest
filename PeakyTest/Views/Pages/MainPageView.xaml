@@ -9,6 +9,9 @@
       Title="MainPageView">
 
     <Grid>
-        <TextBlock Text="Главная страница" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Главная страница" FontSize="24" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding LastSessionText}" FontSize="14" HorizontalAlignment="Center" Foreground="Gray"/>
+        </StackPanel>
     </Grid>
 </Page>

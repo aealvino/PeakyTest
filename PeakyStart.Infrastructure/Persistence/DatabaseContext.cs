@@ -7,6 +7,7 @@ namespace PeakyStart.Infrastructure.Persistence
     public class DatabaseContext : DbContext
     {
         public DbSet<Currency> Currencies { get; set; }
+        public DbSet<AppSetting> AppSettings { get; set; }
         private const string DatabaseFileName = "peakystart.db";
         private const string FallbackFolderName = "PeakyStart";
 
