@@ -34,5 +34,11 @@ namespace PeakyStart.Infrastructure.Services
         {
             await _localRepository.AddAsync(currency);
         }
+
+        public async Task RefreshAsync()
+        {
+            var currencies = await _httpRepository.GetAllAsync();
+            await _localRepository.SaveAllAsync(currencies);
+        }
     }
 }

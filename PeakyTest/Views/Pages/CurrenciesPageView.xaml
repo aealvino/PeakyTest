@@ -10,14 +10,18 @@
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="8">
-            <Button Content="Загрузить курсы валют" Command="{Binding LoadCommand}" Padding="12"></Button>
+            <Button Content="Загрузить курсы валют" Command="{Binding LoadCommand}" Padding="12"/>
+            <Button Content="Обновить курсы валют" Command="{Binding RefreshCommand}" Padding="12"/>
         </StackPanel>
 
-        <ListView Grid.Row="1" 
+        <TextBlock Grid.Row="1" Text="{Binding ErrorMessage}" Foreground="Red" Margin="8"/>
+        
+        <ListView Grid.Row="2" 
                   ItemsSource="{Binding Currencies}" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.CanContentScroll="True">

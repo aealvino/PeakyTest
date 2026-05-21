@@ -19,17 +19,19 @@ namespace PeakyStart.Infrastructure.Repositories
             return await _db.Currencies.ToListAsync();
         }
 
+        // TODO Mapping can be added here
         public async Task SaveAllAsync(IEnumerable<Currency> currencies)
         {
             foreach (var currency in currencies)
             {
                 var existing = await _db.Currencies.FindAsync(currency.Id);
-
                 if (existing is null)
                     _db.Currencies.Add(currency);
                 else
                 {
-                    existing.Id = currency.Id;
+                    if (existing.IsUserDefined)
+                        continue;
+
                     existing.NumCode = currency.NumCode;
                     existing.CharCode = currency.CharCode;
                     existing.Nominal = currency.Nominal;
@@ -46,6 +48,7 @@ namespace PeakyStart.Infrastructure.Repositories
 
         public async Task AddAsync(Currency currency)
         {
+            currency.IsUserDefined = true;
             _db.Currencies.Add(currency);
             await _db.SaveChangesAsync();
         }
