@@ -1,10 +1,8 @@
-﻿using PeakyStart.Domain.Interfaces.Repositories;
-using PeakyStart.Domain.Interfaces.Services;
+﻿using PeakyStart.Domain.Interfaces.Services;
+using PeakyStart.Infrastructure.Persistence;
 using PeakyStart.Infrastructure.Repositories;
 using PeakyStart.Infrastructure.Services;
 using PeakyTestUI.ViewModels;
-using System.Configuration;
-using System.Data;
 using System.Net.Http;
 using System.Windows;
 
@@ -21,11 +19,17 @@ namespace PeakyTest
         {
             base.OnStartup(e);
 
-            var httpClient = new HttpClient();
-            ICurrencyRepository repository = new CurrencyRepository(httpClient);
-            ICurrencyService service = new CurrencyService(repository);
-            CurrencyViewModel = new CurrencyViewModel(service);
+            var db = new DatabaseContext();
+            db.Database.EnsureCreated();
 
+            var httpClient = new HttpClient();
+
+            var httpRepo = new CurrencyApiRepository(httpClient);
+            var localRepo = new CurrencyDbRepository(db);
+
+            ICurrencyService service = new CurrencyService(httpRepo, localRepo);
+
+            CurrencyViewModel = new CurrencyViewModel(service);
             new MainWindow().Show();
         }
     }

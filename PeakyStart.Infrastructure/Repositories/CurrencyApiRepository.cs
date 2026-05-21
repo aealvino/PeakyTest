@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace PeakyStart.Infrastructure.Repositories
 {
-    public class CurrencyRepository : ICurrencyRepository
+    public class CurrencyApiRepository : ICurrencyApiRepository
     {
         private const string URL = "https://www.cbr-xml-daily.ru/daily_json.js";
         private readonly JsonSerializerOptions _jsonOptions = new()
@@ -14,7 +14,7 @@ namespace PeakyStart.Infrastructure.Repositories
         };
         private readonly HttpClient _httpClient;
 
-        public CurrencyRepository(HttpClient httpClient)
+        public CurrencyApiRepository(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }

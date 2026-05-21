@@ -8,9 +8,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeakyStart.Domain", "PeakyStart.Core\PeakyStart.Domain.csproj", "{41D359F6-BFF2-49FC-8219-188121FAC5E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeakyStart.Infrastructure", "PeakyStart.Infrastructure\PeakyStart.Infrastructure.csproj", "{24094E5D-D086-42C0-9B2E-44E6845F74DC}"
-	ProjectSection(ProjectDependencies) = postProject
-		{41D359F6-BFF2-49FC-8219-188121FAC5E9} = {41D359F6-BFF2-49FC-8219-188121FAC5E9}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
