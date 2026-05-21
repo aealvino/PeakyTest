@@ -5,6 +5,7 @@ using System.Text.Json;
 
 namespace PeakyStart.Infrastructure.Repositories
 {
+    // NOTE could take it out into a another project and call it CurrencyApiClient
     public class CurrencyApiRepository : ICurrencyApiRepository
     {
         private const string URL = "https://www.cbr-xml-daily.ru/daily_json.js";
