@@ -21,14 +21,18 @@ namespace PeakyStart.Infrastructure.Services
             {
                 var currencies = await _httpRepository.GetAllAsync();
                 await _localRepository.SaveAllAsync(currencies);
-                return currencies;
             }
             catch (HttpRequestException)
             {
-                if (await _localRepository.HasDataAsync())
-                    return await _localRepository.GetAllAsync();
-                throw;
+                if (!await _localRepository.HasDataAsync())
+                    throw;
             }
+            return await _localRepository.GetAllAsync();
+        }
+
+        public async Task AddAsync(Currency currency)
+        {
+            await _localRepository.AddAsync(currency);
         }
     }
 }

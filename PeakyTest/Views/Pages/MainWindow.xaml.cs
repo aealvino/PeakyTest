@@ -27,5 +27,14 @@ namespace PeakyTest
             };
             MainFrame.Navigate(page);
         }
+
+        private void GoToAddCurrencyPage(object sender, RoutedEventArgs e)
+        {
+            var page = new AddCurrencyPageView
+            {
+                DataContext = App.AddCurrencyViewModel
+            };
+            MainFrame.Navigate(page);
+        }
     }
 }
