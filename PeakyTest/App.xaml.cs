@@ -14,6 +14,7 @@ namespace PeakyTest
     public partial class App : Application
     {
         public static CurrencyViewModel CurrencyViewModel { get; private set; } = null!;
+        public static AddCurrencyViewModel AddCurrencyViewModel { get; private set; } = null!;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -30,6 +31,7 @@ namespace PeakyTest
             ICurrencyService service = new CurrencyService(httpRepo, localRepo);
 
             CurrencyViewModel = new CurrencyViewModel(service);
+            AddCurrencyViewModel = new AddCurrencyViewModel(service);
             new MainWindow().Show();
         }
     }

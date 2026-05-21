@@ -43,5 +43,11 @@ namespace PeakyStart.Infrastructure.Repositories
         }
 
         public async Task<bool> HasDataAsync() => await _db.Currencies.AnyAsync();
+
+        public async Task AddAsync(Currency currency)
+        {
+            _db.Currencies.Add(currency);
+            await _db.SaveChangesAsync();
+        }
     }
 }

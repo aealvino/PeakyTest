@@ -30,5 +30,10 @@ namespace PeakyStart.Infrastructure.Services
                 throw;
             }
         }
+
+        public async Task AddAsync(Currency currency)
+        {
+            await _localRepository.AddAsync(currency);
+        }
     }
 }

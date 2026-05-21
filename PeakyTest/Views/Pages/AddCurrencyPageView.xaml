@@ -1,0 +1,60 @@
+﻿<Page x:Class="PeakyTestUI.Views.Pages.AddCurrencyPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PeakyTestUI.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddCurrencyPageView">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text= "Добавить валюту" FontSize="20" FontWeight="Bold"></TextBlock>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Код" VerticalAlignment="Center"/>
+            <TextBox   Grid.Row="1" Grid.Column="1" Text="{Binding CharCode, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Валюта"  VerticalAlignment="Center"/>
+            <TextBox   Grid.Row="2" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Номинал" VerticalAlignment="Center"/>
+            <TextBox   Grid.Row="3" Grid.Column="1" Text="{Binding Nominal, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Курс" VerticalAlignment="Center"/>
+            <TextBox   Grid.Row="4" Grid.Column="1" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Вчера" VerticalAlignment="Center"/>
+            <TextBox   Grid.Row="5" Grid.Column="1" Text="{Binding Previous, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,4"/>
+
+
+            <StackPanel Grid.Row = "2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content= "Отмена" Command = "{Binding CancelCommand}"></Button>
+                <Button Content= "Добавить" Command = "{Binding AddCommand}"></Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
