@@ -1,6 +1,7 @@
 ﻿using PeakyStart.Domain.Interfaces.Services;
 using PeakyStart.Domain.Models;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Windows.Input;
 
 namespace PeakyTestUI.ViewModels
@@ -28,28 +29,44 @@ namespace PeakyTestUI.ViewModels
         }
 
         public ICommand LoadCommand { get; }
+        public ICommand RefreshCommand { get; }
 
         public CurrencyViewModel(ICurrencyService currencyService)
         {
             _currencyService = currencyService;
             LoadCommand = new RelayCommand(LoadAsync);
+            RefreshCommand = new RelayCommand(RefreshAsync);
+        }
+
+        private async Task RefreshAsync()
+        {
+            await ExecuteAsync(() => _currencyService.RefreshAsync()
+                .ContinueWith(_ => _currencyService.GetAllAsync()).Unwrap());
         }
 
         private async Task LoadAsync()
         {
-            IsLoading = true;
+            await ExecuteAsync(() => _currencyService.GetAllAsync());
+        }
 
+        private async Task ExecuteAsync(Func<Task<IEnumerable<Currency>>> action)
+        {
+            IsLoading = true;
+            ErrorMessage = string.Empty;
             try
             {
-                var result = await _currencyService.GetAllAsync();
-
+                var result = await action();
                 Currencies.Clear();
                 foreach (var c in result)
                     Currencies.Add(c);
             }
+            catch (HttpRequestException ex)
+            {
+                ErrorMessage = $"Нет соединения: {ex.Message}";
+            }
             catch (Exception ex)
             {
-                ErrorMessage = $"Ошибка загрузки: {ex.Message}";
+                ErrorMessage = $"Ошибка: {ex.Message}";
             }
             finally
             {

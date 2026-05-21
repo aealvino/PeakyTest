@@ -7,5 +7,6 @@ namespace PeakyStart.Domain.Interfaces.Services
         Task<IEnumerable<Currency>> GetAllAsync();
 
         Task AddAsync(Currency currency);
+        Task RefreshAsync();
     }
 }
