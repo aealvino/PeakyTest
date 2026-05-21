@@ -1,0 +1,49 @@
+﻿<Page x:Class="PeakyTestUI.Views.CurrenciesPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PeakyTestUI.Views"
+      mc:Ignorable="d" 
+      Title="CurrenciesPageView">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="8">
+            <Button Content="Загрузить курсы валют" Command="{Binding LoadCommand}" Padding="12"></Button>
+
+            <TextBlock Margin="12" VerticalAlignment="Center" FontSize="14" FontStyle="Italic">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="Text" Value="Загрузка..."/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </StackPanel>
+
+        <ListView Grid.Row="2" ItemsSource="{Binding Currencies}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="200"/>
+                    <GridViewColumn Header="Код" DisplayMemberBinding="{Binding CharCode}" Width="200"/>
+                    <GridViewColumn Header="Валюта" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                    <GridViewColumn Header="Номинал" DisplayMemberBinding="{Binding Nominal}" Width="200"/>
+                    <GridViewColumn Header="Курс" DisplayMemberBinding="{Binding Value}" Width="200"/>
+                    <GridViewColumn Header="Вчера" DisplayMemberBinding="{Binding Previous}" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+    </Grid>
+</Page>

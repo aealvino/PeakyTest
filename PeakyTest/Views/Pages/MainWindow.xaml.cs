@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using PeakyTestUI.Views;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,19 @@ namespace PeakyTest
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void GoToMainPage(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void GoToCurrenciesPage(object sender, RoutedEventArgs e)
+        {
+            var page = new CurrenciesPageView
+            {
+                DataContext = App.CurrencyViewModel
+            };
+            MainFrame.Navigate(page);
         }
     }
 }
