@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeakyStart.Domain.Models;
+using Windows.Storage;
 
 namespace PeakyStart.Infrastructure.Persistence
 {
@@ -9,7 +10,23 @@ namespace PeakyStart.Infrastructure.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "peakystart.db");
+            string dbPath;
+
+            try
+            {
+                var localFolder = ApplicationData.Current.LocalFolder.Path;
+                dbPath = Path.Combine(localFolder, "peakystart.db");
+            }
+            catch
+            {
+                dbPath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "PeakyStart",
+                    "peakystart.db");
+
+                Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
+            }
+
             optionsBuilder.UseSqlite($"Data Source={dbPath}");
         }
     }
