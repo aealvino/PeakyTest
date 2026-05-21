@@ -14,15 +14,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="8">
-            <Button Content="Загрузить курсы валют" Command="{Binding LoadCommand}" Padding="12"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+            <Button Content="Загрузить курсы валют" Command="{Binding LoadCommand}" Padding="12" Margin="0,0,8,0"/>
             <Button Content="Обновить курсы валют" Command="{Binding RefreshCommand}" Padding="12"/>
         </StackPanel>
 
-        <TextBlock Grid.Row="1" Text="{Binding ErrorMessage}" Foreground="Red" Margin="8"/>
-        
-        <ListView Grid.Row="2" 
-                  ItemsSource="{Binding Currencies}" 
+        <TextBlock Grid.Row="1" Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,0,0,12"/>
+
+        <ListView Grid.Row="2" ItemsSource="{Binding Currencies}" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.CanContentScroll="True">
             <ListView.View>
@@ -38,14 +37,17 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content = "Удалить" Foreground="Red" Background="Transparent" 
-                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
+                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListView}}" 
+                                        Padding="8,4" 
+                                        Margin="4" 
+                                        CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn> 
-                    
+                    </GridViewColumn>
+
                 </GridView>
             </ListView.View>
         </ListView>
-        
+
     </Grid>
 </Page>
