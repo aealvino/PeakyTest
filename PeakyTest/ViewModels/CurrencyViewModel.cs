@@ -32,15 +32,14 @@ namespace PeakyTestUI.ViewModels
             _currencyService = currencyService;
             LoadCommand = new RelayCommand(LoadAsync);
         }
-
         private async Task LoadAsync()
         {
             IsLoading = true;
-            ErrorMessage = string.Empty;
 
             try
             {
                 var result = await _currencyService.GetAllAsync();
+
                 Currencies.Clear();
                 foreach (var c in result)
                     Currencies.Add(c);

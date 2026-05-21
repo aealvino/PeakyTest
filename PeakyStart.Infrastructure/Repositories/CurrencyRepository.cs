@@ -25,18 +25,17 @@ namespace PeakyStart.Infrastructure.Repositories
             var response = JsonSerializer.Deserialize<CurrenciesResponseDTO>(json, _jsonOptions);
 
             return response?.Valute?.Values
-                    .Select(x => new Currency
-                    {
-                        Id = x.Id,
-                        NumCode = x.NumCode,
-                        CharCode = x.CharCode,
-                        Nominal = x.Nominal,
-                        Name = x.Name,
-                        Value = x.Value,
-                        Previous = x.Previous
-                    })
-                    .ToList()
-                ?? [];
+                .Select(x => new Currency
+                {
+                    Id = x.Id,
+                    NumCode = x.NumCode,
+                    CharCode = x.CharCode,
+                    Nominal = x.Nominal,
+                    Name = x.Name,
+                    Value = x.Value,
+                    Previous = x.Previous
+                })
+                .ToList() ?? new List<Currency>();
         }
     }
 }
