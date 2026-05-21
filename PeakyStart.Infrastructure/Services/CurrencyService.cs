@@ -7,10 +7,10 @@ namespace PeakyStart.Infrastructure.Services
 {
     public class CurrencyService : ICurrencyService
     {
-        private readonly ICurrencyRepository _httpRepository;
-        private readonly CurrencyLocalRepository _localRepository;
+        private readonly ICurrencyApiRepository _httpRepository;
+        private readonly ICurrencyDbRepository _localRepository;
 
-        public CurrencyService(ICurrencyRepository httpRepository, CurrencyLocalRepository localRepository)
+        public CurrencyService(ICurrencyApiRepository httpRepository, CurrencyDbRepository localRepository)
         {
             _httpRepository = httpRepository;
             _localRepository = localRepository;

@@ -5,11 +5,11 @@ using PeakyStart.Infrastructure.Persistence;
 
 namespace PeakyStart.Infrastructure.Repositories
 {
-    public class CurrencyLocalRepository : ICurrencyLocalRepository
+    public class CurrencyDbRepository : ICurrencyDbRepository
     {
         private readonly DatabaseContext _db;
 
-        public CurrencyLocalRepository(DatabaseContext db)
+        public CurrencyDbRepository(DatabaseContext db)
         {
             _db = db;
         }

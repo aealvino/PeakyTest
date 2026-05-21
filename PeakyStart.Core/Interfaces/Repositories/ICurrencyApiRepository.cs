@@ -2,7 +2,7 @@
 
 namespace PeakyStart.Domain.Interfaces.Repositories
 {
-    public interface ICurrencyRepository : IBaseRepository<Currency>
+    public interface ICurrencyApiRepository : IBaseRepository<Currency>
     {
 
     }
