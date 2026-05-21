@@ -16,9 +16,12 @@ namespace PeakyTest
 
         private void GoToMainPage(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new MainPageView());
+            var page = new MainPageView
+            {
+                DataContext = App.MainPageViewModel
+            };
+            MainFrame.Navigate(page);
         }
-
         private void GoToCurrenciesPage(object sender, RoutedEventArgs e)
         {
             var page = new CurrenciesPageView

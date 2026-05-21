@@ -15,13 +15,17 @@ namespace PeakyTest
     {
         public static CurrencyViewModel CurrencyViewModel { get; private set; } = null!;
         public static AddCurrencyViewModel AddCurrencyViewModel { get; private set; } = null!;
+        public static MainPageViewModel MainPageViewModel { get; private set; } = null!;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
             var db = new DatabaseContext();
             db.Database.EnsureCreated();
+
+            var settingsService = new SettingsService(db);
+            MainPageViewModel = new MainPageViewModel(settingsService); 
+            settingsService.SaveLastSession();
 
             var httpClient = new HttpClient();
 

@@ -7,5 +7,6 @@ namespace PeakyStart.Domain.Interfaces.Repositories
         Task SaveAllAsync(IEnumerable<Currency> currencies);
         Task<bool> HasDataAsync();
         Task AddAsync(Currency currency);
+        Task DeleteAsync(string id);
     }
 }

@@ -8,5 +8,6 @@ namespace PeakyStart.Domain.Interfaces.Services
 
         Task AddAsync(Currency currency);
         Task RefreshAsync();
+        Task DeleteAsync(string id);
     }
 }
