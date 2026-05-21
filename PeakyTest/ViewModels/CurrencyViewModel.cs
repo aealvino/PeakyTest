@@ -25,9 +25,6 @@ namespace PeakyTestUI.ViewModels
             set => SetField(ref _errorMessage, value);
         }
 
-        // ❌ Убрали: LoadCommand, RefreshCommand, DeleteCommand
-        // ✅ Они генерируются автоматически через [RelayCommand]
-
         public CurrencyViewModel(ICurrencyService currencyService)
         {
             _currencyService = currencyService;
@@ -49,7 +46,11 @@ namespace PeakyTestUI.ViewModels
         [RelayCommand]
         private async Task DeleteAsync(Currency? currency)
         {
-            if (currency is null) return;
+            if (currency is null)
+            {
+                ErrorMessage = "Валюта не выбрана";
+                return;
+            }
 
             IsLoading = true;
             ErrorMessage = string.Empty;

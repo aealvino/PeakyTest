@@ -37,7 +37,7 @@
                     <GridViewColumn Header="Delete" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content = "Удалить" Foreground="Red" Background="Transparent" 
+                                <Button Content = "Удалить" Foreground="Red" Background="Transparent" BorderThickness="0" 
                                         Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

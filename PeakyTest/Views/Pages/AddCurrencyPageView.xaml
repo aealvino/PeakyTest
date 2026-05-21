@@ -12,7 +12,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition><RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <TextBlock Text= "Добавить валюту" FontSize="20" FontWeight="Bold"></TextBlock>
@@ -34,25 +35,26 @@
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Код" VerticalAlignment="Center"/>
-            <TextBox   Grid.Row="1" Grid.Column="1" Text="{Binding CharCode, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Код" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CharCode, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Цифровой код" VerticalAlignment="Center"/>
-            <TextBox   Grid.Row="2" Grid.Column="1" Text="{Binding NumCode, UpdateSourceTrigger=PropertyChanged}"/>
-            
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="Валюта"  VerticalAlignment="Center"/>
-            <TextBox   Grid.Row="3" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-            
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Номинал" VerticalAlignment="Center"/>
-            <TextBox   Grid.Row="4" Grid.Column="1" Text="{Binding Nominal, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Цифровой код" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NumCode, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="Курс" VerticalAlignment="Center"/>
-            <TextBox   Grid.Row="5" Grid.Column="1" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Валюта" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Grid.Row="6" Grid.Column="0" Text="Вчера" VerticalAlignment="Center"/>
-            <TextBox   Grid.Row="6" Grid.Column="1" Text="{Binding Previous, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Номинал" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Nominal, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,4"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Курс" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Вчера" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Previous, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,8,0,0"/>
+            <TextBlock Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding SuccessMessage}" Foreground="Green" Margin="0,8,0,0"/>
 
 
             <StackPanel Grid.Row = "2" Orientation="Horizontal" HorizontalAlignment="Right">
