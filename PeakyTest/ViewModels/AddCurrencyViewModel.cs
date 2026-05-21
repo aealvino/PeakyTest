@@ -22,6 +22,13 @@ namespace PeakyTestUI.ViewModels
             set => SetField(ref _charCode, value);
         }
 
+        private string _numCode = string.Empty;
+        public string NumCode
+        {
+            get => _numCode;
+            set => SetField(ref _numCode, value);
+        }
+
         private string _name = string.Empty;
         public string Name
         {
@@ -118,6 +125,7 @@ namespace PeakyTestUI.ViewModels
                 var currency = new Currency
                 {
                     Id = string.IsNullOrWhiteSpace(Id) ? Guid.NewGuid().ToString() : Id,
+                    NumCode = NumCode,
                     CharCode = CharCode,
                     Name = Name,
                     Nominal = parsedNominal,
@@ -145,6 +153,7 @@ namespace PeakyTestUI.ViewModels
         {
             Id = string.Empty;
             CharCode = string.Empty;
+            NumCode = string.Empty;
             Name = string.Empty;
             Nominal = string.Empty;
             Value = string.Empty;
