@@ -30,11 +30,12 @@ namespace PeakyTest
             var httpClient = new HttpClient();
 
             var httpRepo = new CurrencyApiRepository(httpClient);
-            var localRepo = new CurrencyDbRepository(db);
+            var dbRepo = new CurrencyDbRepository(db);
+            var jsonRepo = new CurrencyJsonRepository();
 
-            ICurrencyService service = new CurrencyService(httpRepo, localRepo);
+            ICurrencyService service = new CurrencyService(httpRepo, dbRepo);
 
-            CurrencyViewModel = new CurrencyViewModel(service);
+            CurrencyViewModel = new CurrencyViewModel(service, dbRepo, jsonRepo);
             AddCurrencyViewModel = new AddCurrencyViewModel(service);
             new MainWindow().Show();
         }

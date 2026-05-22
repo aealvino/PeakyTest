@@ -1,12 +1,6 @@
-﻿using PeakyStart.Domain.Models;
-
-namespace PeakyStart.Domain.Interfaces.Repositories
+﻿namespace PeakyStart.Domain.Interfaces.Repositories
 {
-    public interface ICurrencyDbRepository : IBaseRepository<Currency>
+    public interface ICurrencyDbRepository : ICurrencyStorageRepository
     {
-        Task SaveAllAsync(IEnumerable<Currency> currencies);
-        Task<bool> HasDataAsync();
-        Task AddAsync(Currency currency);
-        Task DeleteAsync(string id);
     }
 }
