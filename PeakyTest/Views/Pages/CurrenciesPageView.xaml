@@ -15,12 +15,14 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+            <ComboBox Width="150" Margin="0,0,8,0" ItemsSource="{Binding StorageTypes}" SelectedItem="{Binding SelectedStorageType}" />
             <Button Content="Загрузить курсы валют" Command="{Binding LoadCommand}" Padding="12" Margin="0,0,8,0"/>
             <Button Content="Обновить курсы валют" Command="{Binding RefreshCommand}" Padding="12"/>
         </StackPanel>
 
         <TextBlock Grid.Row="1" Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,0,0,12"/>
 
+        
         <ListView Grid.Row="2" ItemsSource="{Binding Currencies}" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.CanContentScroll="True">
@@ -33,14 +35,10 @@
                     <GridViewColumn Header="Курс" DisplayMemberBinding="{Binding Value}" Width="200"/>
                     <GridViewColumn Header="Вчера" DisplayMemberBinding="{Binding Previous}" Width="200"/>
 
-                    <GridViewColumn Header="Delete" Width="80">
+                    <GridViewColumn Header="Удалить" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content = "Удалить" Foreground="Red" Background="Transparent" 
-                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListView}}" 
-                                        Padding="8,4" 
-                                        Margin="4" 
-                                        CommandParameter="{Binding}"/>
+                                <Button Content = "Удалить" Foreground="Red" Background="Transparent" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListView}}" Padding="8,4" Margin="4" CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

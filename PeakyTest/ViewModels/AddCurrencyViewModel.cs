@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using PeakyStart.Domain.Interfaces.Services;
 using PeakyStart.Domain.Models;
-using PeakyTestUI.Validations;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
@@ -21,6 +20,7 @@ namespace PeakyTestUI.ViewModels
         private string _charCode = string.Empty;
 
         [Required(ErrorMessage = "Код обязателен")]
+        [StringLength(3, MinimumLength = 3, ErrorMessage = "Код должен содержать ровно 3 буквы")]
         public string CharCode
         {
             get => _charCode;
@@ -34,6 +34,7 @@ namespace PeakyTestUI.ViewModels
         private string _numCode = string.Empty;
 
         [Required(ErrorMessage = "Цифровой код обязателен")]
+        [RegularExpression(@"^\d{3}$", ErrorMessage = "Цифровой код должен содержать ровно 3 цифры")]
         public string NumCode
         {
             get => _numCode;
@@ -47,6 +48,7 @@ namespace PeakyTestUI.ViewModels
         private string _name = string.Empty;
 
         [Required(ErrorMessage = "Название обязательно")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Название должно быть от 2 до 50 символов")]
         public string Name
         {
             get => _name;
@@ -60,7 +62,7 @@ namespace PeakyTestUI.ViewModels
         private string _nominal = string.Empty;
 
         [Required(ErrorMessage = "Номинал обязателен")]
-        [MustBeNum(ErrorMessage = "Номинал должен быть целым числом")]
+        [RegularExpression(@"^\d{1,10}$", ErrorMessage = "Введите число от 1 до 10 цифр")]
         public string Nominal
         {
             get => _nominal;
@@ -74,7 +76,7 @@ namespace PeakyTestUI.ViewModels
         private string _value = string.Empty;
 
         [Required(ErrorMessage = "Курс обязателен")]
-        [MustBeNum(ErrorMessage = "Должен быть числом")]
+        [RegularExpression(@"^\d{1,10}([.,]\d{1,4})?$", ErrorMessage = "Введите число от 1 до 10 цифр")]
         public string Value
         {
             get => _value;
@@ -87,8 +89,8 @@ namespace PeakyTestUI.ViewModels
 
         private string _previous = string.Empty;
 
-        [Required(ErrorMessage = "Вчерашнее значение обязательно")]
-        [MustBeNum(ErrorMessage = "Вчерашнее значение должно быть числом")]
+        [Required(ErrorMessage = "Вчерашний курс обязателен")]
+        [RegularExpression(@"^\d{1,10}([.,]\d{1,4})?$", ErrorMessage = "Введите число от 1 до 10 цифр")]
         public string Previous
         {
             get => _previous;

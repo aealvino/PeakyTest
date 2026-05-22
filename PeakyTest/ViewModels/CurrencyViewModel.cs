@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using PeakyStart.Domain.Interfaces.Repositories;
 using PeakyStart.Domain.Interfaces.Services;
 using PeakyStart.Domain.Models;
+using PeakyStart.Domain.Models.Enums;
 using System.Collections.ObjectModel;
 
 namespace PeakyTestUI.ViewModels
@@ -8,8 +10,11 @@ namespace PeakyTestUI.ViewModels
     public partial class CurrencyViewModel : BaseViewModel
     {
         private readonly ICurrencyService _currencyService;
+        private readonly ICurrencyDbRepository _dbRepository;
+        private readonly ICurrencyJsonRepository _jsonRepository;
 
         public ObservableCollection<Currency> Currencies { get; } = new();
+        public List<StorageTypeEnum> StorageTypes { get; } = Enum.GetValues<StorageTypeEnum>().ToList();
 
         private bool _isLoading;
         public bool IsLoading
@@ -25,9 +30,31 @@ namespace PeakyTestUI.ViewModels
             set => SetField(ref _errorMessage, value);
         }
 
-        public CurrencyViewModel(ICurrencyService currencyService)
+        private StorageTypeEnum _selectedStorageType;
+
+        public StorageTypeEnum SelectedStorageType
+        {
+            get => _selectedStorageType;
+            set
+            {
+                SetField(ref _selectedStorageType, value);
+                SwitchStorage(value);
+            }
+        }
+
+        private void SwitchStorage(StorageTypeEnum storageType)
+        {
+            if (storageType == StorageTypeEnum.SQLite)
+                _currencyService.SetRepository(_dbRepository);
+            else
+            _currencyService.SetRepository(_jsonRepository);
+        }
+
+        public CurrencyViewModel(ICurrencyService currencyService, ICurrencyDbRepository dbRepository, ICurrencyJsonRepository jsonRepository)
         {
             _currencyService = currencyService;
+            _dbRepository = dbRepository;
+            _jsonRepository = jsonRepository;
         }
 
         [RelayCommand]
