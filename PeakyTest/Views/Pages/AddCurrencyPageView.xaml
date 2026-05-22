@@ -3,12 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:PeakyTestUI.Views.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
       Title="AddCurrencyPageView">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Page.Resources>
 
-    <Grid>
+    <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -16,14 +17,14 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Text= "Добавить валюту" FontSize="20" FontWeight="Bold"></TextBlock>
+        <TextBlock Text="Добавить валюту" FontSize="20" FontWeight="Bold" Margin="0,0,0,16"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -35,32 +36,49 @@
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Код" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CharCode, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Код" VerticalAlignment="Center" Margin="0,0,12,4"/>
+            <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,0,8">
+                <TextBox x:Name="CharCodeBox" Text="{Binding CharCode, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" Padding="8"/>
+                <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=CharCodeBox}" Visibility="{Binding (Validation.HasError), ElementName=CharCodeBox, Converter={StaticResource BoolToVis}}" Foreground="Red" FontSize="11" Margin="2,2,0,0"/>
+            </StackPanel>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Цифровой код" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NumCode, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Цифровой код" VerticalAlignment="Center" Margin="0,0,12,4"/>
+            <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,8">
+                <TextBox x:Name="NumCodeBox" Text="{Binding NumCode, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" Padding="8"/>
+                <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=NumCodeBox}" Visibility="{Binding (Validation.HasError), ElementName=NumCodeBox, Converter={StaticResource BoolToVis}}" Foreground="Red" FontSize="11" Margin="2,2,0,0"/>
+            </StackPanel>
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Валюта" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Валюта" VerticalAlignment="Center" Margin="0,0,12,4"/>
+            <StackPanel Grid.Row="2" Grid.Column="1" Margin="0,0,0,8">
+                <TextBox x:Name="NameBox" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" Padding="8"/>
+                <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=NameBox}" Visibility="{Binding (Validation.HasError), ElementName=NameBox, Converter={StaticResource BoolToVis}}" Foreground="Red" FontSize="11" Margin="2,2,0,0"/>
+            </StackPanel>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="Номинал" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Nominal, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Номинал" VerticalAlignment="Center" Margin="0,0,12,4"/>
+            <StackPanel Grid.Row="3" Grid.Column="1" Margin="0,0,0,8">
+                <TextBox x:Name="NominalBox" Text="{Binding Nominal, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" Padding="8"/>
+                <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=NominalBox}" Visibility="{Binding (Validation.HasError), ElementName=NominalBox, Converter={StaticResource BoolToVis}}" Foreground="Red" FontSize="11" Margin="2,2,0,0"/>
+            </StackPanel>
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Курс" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Курс" VerticalAlignment="Center" Margin="0,0,12,4"/>
+            <StackPanel Grid.Row="4" Grid.Column="1" Margin="0,0,0,8">
+                <TextBox x:Name="ValueBox" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" Padding="8"/>
+                <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=ValueBox}" Visibility="{Binding (Validation.HasError), ElementName=ValueBox, Converter={StaticResource BoolToVis}}" Foreground="Red" FontSize="11" Margin="2,2,0,0"/>
+            </StackPanel>
 
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="Вчера" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Previous, UpdateSourceTrigger=PropertyChanged}" />
-
-            <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,8,0,0"/>
-            <TextBlock Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding SuccessMessage}" Foreground="Green" Margin="0,8,0,0"/>
-
-
-            <StackPanel Grid.Row = "2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content= "Отмена" Command = "{Binding CancelCommand}"></Button>
-                <Button Content= "Добавить" Command = "{Binding AddCommand}"></Button>
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Вчера" VerticalAlignment="Center" Margin="0,0,12,4"/>
+            <StackPanel Grid.Row="5" Grid.Column="1">
+                <TextBox x:Name="PreviousBox" Text="{Binding Previous, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" Padding="8"/>
+                <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=PreviousBox}" Visibility="{Binding (Validation.HasError), ElementName=PreviousBox, Converter={StaticResource BoolToVis}}" Foreground="Red" FontSize="11" Margin="2,2,0,0"/>
             </StackPanel>
         </Grid>
+
+        <TextBlock Grid.Row="2" Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,12,0,0"/>
+        <TextBlock Grid.Row="3" Text="{Binding SuccessMessage}" Foreground="Green" Margin="0,8,0,0"/>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Content="Отмена" Command="{Binding CancelCommand}" Margin="0,0,8,0" Padding="12,6"/>
+            <Button Content="Добавить" Command="{Binding AddCommand}" Padding="12,6"/>
+        </StackPanel>
     </Grid>
 </Page>
