@@ -1,0 +1,51 @@
+﻿<Page x:Class="PeakyTestUI.Views.CurrenciesPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PeakyTestUI.Views"
+      mc:Ignorable="d" 
+      Title="CurrenciesPageView">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+            <ComboBox Width="150" Margin="0,0,8,0" ItemsSource="{Binding StorageTypes}" SelectedItem="{Binding SelectedStorageType}" />
+            <Button Content="Загрузить курсы валют" Command="{Binding LoadCommand}" Padding="12" Margin="0,0,8,0"/>
+            <Button Content="Обновить курсы валют" Command="{Binding RefreshCommand}" Padding="12"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,0,0,12"/>
+
+        
+        <ListView Grid.Row="2" ItemsSource="{Binding Currencies}" 
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="True">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="200"/>
+                    <GridViewColumn Header="Код" DisplayMemberBinding="{Binding CharCode}" Width="200"/>
+                    <GridViewColumn Header="Валюта" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                    <GridViewColumn Header="Номинал" DisplayMemberBinding="{Binding Nominal}" Width="200"/>
+                    <GridViewColumn Header="Курс" DisplayMemberBinding="{Binding Value}" Width="200"/>
+                    <GridViewColumn Header="Вчера" DisplayMemberBinding="{Binding Previous}" Width="200"/>
+
+                    <GridViewColumn Header="Удалить" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content = "Удалить" Foreground="Red" Background="Transparent" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListView}}" Padding="8,4" Margin="4" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Page>
